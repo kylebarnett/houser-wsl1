@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios'
 
 class Wizard extends Component {
   constructor() {
@@ -39,6 +40,19 @@ class Wizard extends Component {
   handleZipChange = (event) => {
     this.setState({
       zip: event.target.value
+    })
+  }
+  componentDidMount() {
+    const { name, address, city, state, zip } = this.state
+    const addHouse = { name, address, city, state, zip }
+    axios.post('http://localhost:7771/api/house', addHouse).then(results => {
+      this.setState({
+        name: results.data,
+        address: results.data,
+        city: results.data,
+        state: results.data,
+        zip: results.data
+      })
     })
   }
   render() { 

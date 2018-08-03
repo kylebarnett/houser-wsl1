@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Wizard from './Wizard';
 import House from './House';
 
@@ -11,21 +11,23 @@ class Dashboard extends Component {
       houses: []
     }
   }
-  componentDidMount (){
-    axios.get('/api/houses').then(results => {
+  componentDidMount() {
+    axios.get('http://localhost:7771/api/houses').then(results => {
       this.setState({
         houses: results.data
-      })})
+      })
+    })
   }
-  render() { 
+  render() {
     let houseMap = this.state.houses.map((element, index) => {
       return (
-        <House 
-        id = {element.id}
-        name = {element.name}
-        address = {element.address}
-        state = {element.state}
-        zip = {element.zip}
+        <House
+          id={element.id}
+          name={element.name}
+          address={element.address}
+          city={element.city}
+          state={element.state}
+          zip={element.zip}
         />
       )
     })
@@ -37,5 +39,5 @@ class Dashboard extends Component {
     );
   }
 }
- 
+
 export default Dashboard;

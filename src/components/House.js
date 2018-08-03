@@ -3,7 +3,22 @@ import React from 'react';
 function House(props) {
   return (
     <div>
-      House!
+      <div>
+      Name: {props.name} 
+      </div>
+      <div>
+      Address: {props.address}
+      </div>
+      <div>
+      City: {props.city}
+      </div>
+      <div>
+      State: {props.state}
+      </div>
+      <div>
+      Zip: {props.zip}
+      </div>
+      <button>Delete</button>
     </div>
   )
 }
