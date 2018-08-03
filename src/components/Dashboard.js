@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import {Link} from 'react-router-dom';
+import Wizard from './Wizard';
+import House from './House';
 
 class Dashboard extends Component {
   constructor() {
@@ -7,10 +11,28 @@ class Dashboard extends Component {
       houses: []
     }
   }
+  componentDidMount (){
+    axios.get('/api/houses').then(results => {
+      this.setState({
+        houses: results.data
+      })})
+  }
   render() { 
+    let houseMap = this.state.houses.map((element, index) => {
+      return (
+        <House 
+        id = {element.id}
+        name = {element.name}
+        address = {element.address}
+        state = {element.state}
+        zip = {element.zip}
+        />
+      )
+    })
     return (
       <div>
-        Dashboard!
+        <Link to="/wizard"><button>Add New Property</button></Link>
+        {houseMap}
       </div>
     );
   }
