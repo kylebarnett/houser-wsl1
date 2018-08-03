@@ -2,8 +2,8 @@ module.exports = {
   getHouses: (req, res) => {
     const db = req.app.get('db')
     db.get_houses()
-      .then(results => {
-        res.status(200).send(results)
+      .then(response => {
+        res.status(200).send(response)
       })
       .catch(err => {
         console.log(err)
@@ -12,11 +12,12 @@ module.exports = {
   },
 
   addHouse: (req, res) => {
-    const db = req.app.get('db')
-    const { name, address, city, state, zipcode } = req.body
-    db.add_house([])
-      .then(results => {
-        res.status(200).send(results)
+    let db = req.app.get('db')
+    let { name, address, city, state, zip } = req.body
+    console.log(req.body)
+    db.add_house([name, address, city, state, zip])
+      .then(response => {
+        res.status(200).send(response)
       })
       .catch(err => {
         console.log(err)

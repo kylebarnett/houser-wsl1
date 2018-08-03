@@ -18,7 +18,7 @@ function House(props) {
       <div>
       Zip: {props.zip}
       </div>
-      <button>Delete</button>
+      <button onClick={ () => props.deleteHouse(props.id)}>Delete</button>
     </div>
   )
 }

@@ -17,6 +17,14 @@ class Dashboard extends Component {
         houses: results.data
       })
     })
+
+      const {houses} = this.state
+      const deleteHouse = {houses}
+      axios.delete(`http://localhost:7771/api/house`, deleteHouse).then(results => {
+        this.setState({
+          houses: results.data
+        })
+      })
   }
   render() {
     let houseMap = this.state.houses.map((element, index) => {
@@ -28,6 +36,7 @@ class Dashboard extends Component {
           city={element.city}
           state={element.state}
           zip={element.zip}
+          deleteHouse={this.deleteHouse}
         />
       )
     })

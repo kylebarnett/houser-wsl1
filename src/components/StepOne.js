@@ -1,3 +1,4 @@
+import {connect} from 'react-redux'
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios'
@@ -12,19 +13,6 @@ class Wizard extends Component {
       state: '',
       zip: 0
     }
-  }
-  newHouse = (id) => {
-    const { name, address, city, state, zip } = this.state
-    const addHouse = { name, address, city, state, zip }
-    axios.post('http://localhost:7771/api/house', addHouse).then(results => {
-      this.setState({
-        name: results.data,
-        address: results.data,
-        city: results.data,
-        state: results.data,
-        zip: results.data
-      })
-    })
   }
   handleNameChange = (event) => {
     this.setState({
@@ -55,18 +43,28 @@ class Wizard extends Component {
       zip: event.target.value
     })
   }
-
+  componentDidMount() {
+    const { name, address, city, state, zip } = this.state
+    const addHouse = { name, address, city, state, zip }
+    axios.post('http://localhost:7771/api/house', addHouse).then(results => {
+      this.setState({
+        name: results.data,
+        address: results.data,
+        city: results.data,
+        state: results.data,
+        zip: results.data
+      })
+    })
+  }
   render() { 
-    console.log(this.state.name)
     return (
       <div>
-        <input placeholder="Name" value={this.state.name} onChange={this.handleNameChange} />
+        <input placeholder="Name" value={this.state.name} onChange={this.handleNameChange}/>
         <input placeholder="Address" value={this.state.address} onChange={this.handleAddressChange}/>
         <input placeholder="City" value={this.state.city} onChange={this.handleCityChange}/>
         <input placeholder="State" value={this.state.state} onChange={this.handleStateChange}/>
         <input value={this.state.zip} onChange={this.handleZipChange}/>
         <button>Complete</button>
-        <Link to="/"><button>Cancel</button></Link>
       </div>
     );
   }
